@@ -187,13 +187,26 @@ require("lazy").setup({
     },
   },
 
-  -- Color Scheme (Gruvbox - matches Ghostty)
+  -- Color Scheme (VSCode for editing, Gruvbox for terminals)
   {
-    "ellisonleao/gruvbox.nvim",
+    "Mofiqul/vscode.nvim",
     priority = 1000,
     config = function()
+      require('vscode').setup({
+        transparent = false,
+        italic_comments = true,
+        disable_nvimtree_bg = false,
+      })
+      vim.cmd.colorscheme('vscode')
+    end,
+  },
+
+  -- Gruvbox (for terminal windows only)
+  {
+    "ellisonleao/gruvbox.nvim",
+    config = function()
       require("gruvbox").setup({
-        contrast = "hard",  -- matches "Gruvbox Dark Hard" in Ghostty
+        contrast = "hard",
         transparent_mode = false,
         italic = {
           strings = false,
@@ -203,7 +216,6 @@ require("lazy").setup({
           folds = true,
         },
       })
-      vim.cmd.colorscheme("gruvbox")
     end,
   },
 
@@ -237,18 +249,21 @@ require("lazy").setup({
 })
 
 -- ============================================================================
--- Terminal Styling (Visual separator for terminal windows)
+-- Terminal Styling (Gruvbox Dark Hard for terminals, VSCode for code)
 -- ============================================================================
 
--- Make terminal window borders more prominent for visual distinction
+-- Apply Gruvbox colorscheme to terminal windows
 vim.api.nvim_create_autocmd('TermOpen', {
   callback = function()
-    -- Apply brighter border to terminal windows while keeping same background
-    vim.wo.winhighlight = 'WinSeparator:TerminalWinSeparator'
+    -- Set window-local colorscheme to Gruvbox for terminal
+    vim.cmd('setlocal winhighlight=Normal:GruvboxTerminal,NormalNC:GruvboxTerminal')
+    -- Apply brighter border to terminal windows
+    vim.wo.winhighlight = 'WinSeparator:TerminalWinSeparator,Normal:GruvboxTerminal,NormalNC:GruvboxTerminal'
   end,
 })
 
--- Brighter border for terminal windows (uses Gruvbox bright yellow)
+-- Define Gruvbox terminal colors (Dark Hard variant)
+vim.api.nvim_set_hl(0, 'GruvboxTerminal', { bg = '#1d2021', fg = '#ebdbb2' })
 vim.api.nvim_set_hl(0, 'TerminalWinSeparator', { fg = '#fabd2f', bold = true })
 
 -- ============================================================================
