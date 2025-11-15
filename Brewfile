@@ -1,7 +1,6 @@
 # Brewfile - Complete package list
 
 # Taps
-tap "homebrew/bundle"
 tap "homebrew/cask-fonts"
 
 # Version Manager (replaces nvm, rustup for versions, etc.)
