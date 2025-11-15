@@ -1,8 +1,5 @@
 # Brewfile - Complete package list
 
-# Taps
-tap "homebrew/cask-fonts"
-
 # Version Manager (replaces nvm, rustup for versions, etc.)
 brew "mise"
 
@@ -36,9 +33,6 @@ brew "sqlite"
 brew "docker"          # Docker CLI
 brew "docker-compose"  # Docker Compose
 
-# Security
-brew "1password-cli"
-
 # Fonts (for terminal)
 cask "font-fira-code-nerd-font"
 cask "font-meslo-lg-nerd-font"
@@ -47,6 +41,7 @@ cask "font-jetbrains-mono-nerd-font"
 # GUI Apps
 cask "ghostty"         # Modern terminal
 cask "1password"
+cask "1password-cli"   # 1Password CLI
 
 # Optional but useful
 brew "tree"
