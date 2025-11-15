@@ -1,6 +1,7 @@
 #!/bin/bash
-# run_once_before_install-packages.sh.tmpl
-# This script runs once before applying dotfiles to install Homebrew and packages
+# run_onchange_before_install-packages.sh.tmpl
+# This script runs whenever the Brewfile changes to install new packages
+# Brewfile hash: {{ include "Brewfile" | sha256sum }}
 
 set -e
 
