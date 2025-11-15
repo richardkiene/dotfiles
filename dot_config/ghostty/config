@@ -4,7 +4,9 @@
 # ============================================================================
 # Theme
 # ============================================================================
-theme = "VSCode_Dark"
+# Use one of Ghostty's built-in themes
+# List available: ghostty +list-themes
+theme = "GruvboxDark"
 
 # ============================================================================
 # Font
@@ -39,8 +41,8 @@ quick-terminal-position = "top"
 # ============================================================================
 # Shell Integration
 # ============================================================================
-shell-integration = true
-shell-integration-features = "cursor,sudo,title"
+shell-integration = detect
+shell-integration-features = cursor,sudo,title
 
 # ============================================================================
 # Cursor
@@ -98,6 +100,3 @@ macos-option-as-alt = true
 
 # Title bar style (native, transparent, hidden)
 macos-titlebar-style = native
-
-# Secure keyboard entry (disable for password managers)
-macos-secure-input = false
