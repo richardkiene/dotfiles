@@ -187,23 +187,23 @@ require("lazy").setup({
     },
   },
 
-  -- Color Scheme
+  -- Color Scheme (Gruvbox - matches Ghostty)
   {
-    "Mofiqul/vscode.nvim",
+    "ellisonleao/gruvbox.nvim",
     priority = 1000,
     config = function()
-      require('vscode').setup({
-        transparent = false,
-        italic_comments = true,
+      require("gruvbox").setup({
+        contrast = "hard",  -- matches "Gruvbox Dark Hard" in Ghostty
+        transparent_mode = false,
+        italic = {
+          strings = false,
+          emphasis = true,
+          comments = true,
+          operators = false,
+          folds = true,
+        },
       })
-      vim.cmd.colorscheme("vscode")
-
-      -- Custom darker background for terminal windows
-      vim.api.nvim_set_hl(0, 'TerminalNormal', { bg = '#0a0a0a', fg = '#d4d4d4' })
-      vim.api.nvim_set_hl(0, 'TerminalNormalNC', { bg = '#0a0a0a', fg = '#d4d4d4' })
-
-      -- Brighter separator for terminal windows
-      vim.api.nvim_set_hl(0, 'TerminalWinSeparator', { fg = '#3a3a3a', bg = '#0a0a0a' })
+      vim.cmd.colorscheme("gruvbox")
     end,
   },
 
@@ -237,15 +237,19 @@ require("lazy").setup({
 })
 
 -- ============================================================================
--- Terminal Styling (Darker background for Claude Code)
+-- Terminal Styling (Visual separator for terminal windows)
 -- ============================================================================
 
--- Apply darker background and brighter borders to terminal windows
+-- Make terminal window borders more prominent for visual distinction
 vim.api.nvim_create_autocmd('TermOpen', {
   callback = function()
-    vim.wo.winhighlight = 'Normal:TerminalNormal,NormalNC:TerminalNormalNC,WinSeparator:TerminalWinSeparator'
+    -- Apply brighter border to terminal windows while keeping same background
+    vim.wo.winhighlight = 'WinSeparator:TerminalWinSeparator'
   end,
 })
+
+-- Brighter border for terminal windows (uses Gruvbox bright yellow)
+vim.api.nvim_set_hl(0, 'TerminalWinSeparator', { fg = '#fabd2f', bold = true })
 
 -- ============================================================================
 -- LSP Configuration (Neovim 0.11+ Built-in)
