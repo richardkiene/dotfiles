@@ -4,12 +4,22 @@
 [user]
 	name = Richard Kiene
 	email = richard@liquescent.dev
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHyTKmfAwcJcdfKXmj2h3mwfgPaelE6gSMrquAcPmW09
+
+[commit]
+	gpgsign = true
+
+[gpg]
+	format = ssh
+
+[gpg "ssh"]
+	allowedSignersFile = ~/.config/git/allowed_signers
 
 [core]
 	editor = nvim
 	autocrlf = input
 	excludesfile = ~/.gitignore_global
-	pager = less -FRX
+	pager = delta
 
 [init]
 	defaultBranch = main
@@ -44,6 +54,7 @@
 
 [diff]
 	tool = nvimdiff
+	colorMoved = default
 
 [merge]
 	tool = nvimdiff
@@ -58,13 +69,10 @@
 	helper = !/opt/homebrew/bin/gh auth git-credential
 
 [credential "https://gist.github.com"]
-	helper = 
+	helper =
 	helper = !/opt/homebrew/bin/gh auth git-credential
 
-Delta (better diffs) - uncomment if you install delta
-[core]
-	pager = delta
-
+# Delta (better diffs)
 [interactive]
 	diffFilter = delta --color-only
 
@@ -72,9 +80,3 @@ Delta (better diffs) - uncomment if you install delta
 	navigate = true
 	light = false
 	side-by-side = true
-
-[merge]
-	conflictstyle = diff3
-
-[diff]
-	colorMoved = default
