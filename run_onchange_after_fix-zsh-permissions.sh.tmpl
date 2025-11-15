@@ -1,0 +1,23 @@
+#!/bin/bash
+# run_onchange_after_fix-zsh-permissions.sh.tmpl
+# Fix Homebrew zsh completion permissions to avoid compinit warnings
+# Runs whenever Brewfile changes (when zsh plugins are added/updated)
+# Brewfile hash: {{ include "Brewfile" | sha256sum }}
+
+set -e
+
+if [[ "$(uname)" == "Darwin" ]] && command -v brew &>/dev/null; then
+    echo "🔧 Fixing Homebrew zsh permissions..."
+
+    # Fix Homebrew's ZSH site-functions
+    chmod 755 /opt/homebrew/share 2>/dev/null || true
+    chmod 755 /opt/homebrew/share/zsh 2>/dev/null || true
+    chmod 755 /opt/homebrew/share/zsh/site-functions 2>/dev/null || true
+    chmod 755 /opt/homebrew/share/zsh/site-functions/_* 2>/dev/null || true
+
+    # Fix Homebrew Cellar directories that contain the actual completion files
+    find /opt/homebrew/Cellar -name "zsh" -type d 2>/dev/null | xargs chmod -R 755 2>/dev/null || true
+    find /opt/homebrew/Cellar -name "site-functions" -type d 2>/dev/null | xargs chmod -R 755 2>/dev/null || true
+
+    echo "✅ zsh permissions fixed"
+fi
