@@ -42,8 +42,8 @@ quick-terminal-position = "top"
 # Shell Integration
 # ============================================================================
 shell-integration = detect
-# Features: cursor shape changes, sudo env, title updates, prompt marking, clipboard
-shell-integration-features = cursor,sudo,title,prompt-mark
+# Features: cursor shape changes, sudo wrapper, title updates
+shell-integration-features = cursor,sudo,title
 
 # ============================================================================
 # Cursor
