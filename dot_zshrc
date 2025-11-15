@@ -44,6 +44,23 @@ eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
 # ============================================================================
+# Zsh Plugins (installed via Homebrew)
+# ============================================================================
+
+# Fish-like autosuggestions
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Syntax highlighting (must be last)
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Additional completions
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+  autoload -Uz compinit
+  compinit
+fi
+
+# ============================================================================
 # Aliases
 # ============================================================================
 

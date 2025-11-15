@@ -14,6 +14,9 @@ brew "tmux"
 
 # Shell & Prompt
 brew "starship"  # Fast, minimal prompt (replaces oh-my-zsh + oh-my-posh)
+brew "zsh-autosuggestions"  # Fish-like autosuggestions
+brew "zsh-syntax-highlighting"  # Syntax highlighting for zsh
+brew "zsh-completions"  # Additional completions
 
 # Search & Navigation
 brew "ripgrep"   # Fast grep (rg)
