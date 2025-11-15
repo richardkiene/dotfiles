@@ -5,8 +5,8 @@
 # Theme
 # ============================================================================
 # Use one of Ghostty's built-in themes
-# List available: ghostty +list-themes
-theme = "GruvboxDark"
+# List available: ls /Applications/Ghostty.app/Contents/Resources/ghostty/themes
+theme = "iTerm2 Default"
 
 # ============================================================================
 # Font
