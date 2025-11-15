@@ -6,7 +6,7 @@
 # ============================================================================
 # Use one of Ghostty's built-in themes
 # List available: ls /Applications/Ghostty.app/Contents/Resources/ghostty/themes
-theme = "iTerm2 Default"
+theme = "Ayu Dark Hard"
 
 # ============================================================================
 # Font
