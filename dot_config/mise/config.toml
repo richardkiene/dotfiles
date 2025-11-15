@@ -33,10 +33,3 @@ auto_install = true
 
 # Use symlinks for shims (faster)
 experimental = true
-
-# ============================================================================
-# Aliases (optional shortcuts)
-# ============================================================================
-[aliases]
-# Example: mise use node@20 instead of node@20.x.x
-# node = { "20" = "20.11.0" }
