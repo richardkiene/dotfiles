@@ -1,0 +1,17 @@
+# Documentation (keep in repo but don't apply to home directory)
+README.md
+QUICKREF.md
+CLAUDE.md
+LICENSE
+
+# Git metadata
+.git
+.gitignore
+
+# Utility scripts (used by chezmoi scripts, not applied to home)
+Brewfile
+macos/
+
+# Backup files (should not exist in clean repo, but just in case)
+*.backup.*
+*_backup_*

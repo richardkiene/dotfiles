@@ -1,0 +1,80 @@
+# Git Configuration
+# Edit with your personal information
+
+[user]
+	name = Richard Kiene
+	email = richard@liquescent.dev
+
+[core]
+	editor = nvim
+	autocrlf = input
+	excludesfile = ~/.gitignore_global
+	pager = less -FRX
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = false
+
+[push]
+	default = simple
+	autoSetupRemote = true
+
+[alias]
+	# Short aliases
+	st = status
+	co = checkout
+	br = branch
+	ci = commit
+	
+	# More complex aliases
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	last = log -1 HEAD
+	unstage = reset HEAD --
+	
+	# Show branches sorted by last modified
+	recent = branch --sort=-committerdate
+	
+	# Amend last commit
+	amend = commit --amend --no-edit
+
+[color]
+	ui = auto
+
+[diff]
+	tool = nvimdiff
+
+[merge]
+	tool = nvimdiff
+	conflictstyle = diff3
+
+[credential]
+	helper = osxkeychain
+
+# GitHub CLI integration
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+
+Delta (better diffs) - uncomment if you install delta
+[core]
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	light = false
+	side-by-side = true
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	colorMoved = default

@@ -1,0 +1,70 @@
+#!/bin/bash
+# run_once_before_install-packages.sh.tmpl
+# This script runs once before applying dotfiles to install Homebrew and packages
+
+set -e
+
+echo "📦 Installing Homebrew and packages..."
+
+# ============================================================================
+# Homebrew
+# ============================================================================
+
+if ! command -v brew &> /dev/null; then
+    echo "📦 Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    # Add Homebrew to PATH for Apple Silicon
+    if [[ $(uname -m) == 'arm64' ]]; then
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+else
+    echo "✅ Homebrew already installed"
+fi
+
+# ============================================================================
+# Install packages from Brewfile
+# ============================================================================
+
+BREWFILE="{{ .chezmoi.sourceDir }}/Brewfile"
+
+if [ -f "$BREWFILE" ]; then
+    echo "📦 Installing packages from Brewfile..."
+    brew bundle --file="$BREWFILE"
+else
+    echo "⚠️  Brewfile not found at $BREWFILE"
+fi
+
+# ============================================================================
+# Create necessary directories
+# ============================================================================
+
+echo "📁 Creating necessary directories..."
+mkdir -p ~/.config/nvim
+mkdir -p ~/.config/ghostty
+mkdir -p ~/.config/mise
+mkdir -p ~/.local/bin
+
+# ============================================================================
+# Setup mise (version manager)
+# ============================================================================
+
+echo "🔧 Setting up mise..."
+if command -v mise &> /dev/null; then
+    mise install  # Installs versions from config.toml
+    echo "  mise configured"
+else
+    echo "  ⚠️  mise not found, skipping"
+fi
+
+# ============================================================================
+# Initialize fzf
+# ============================================================================
+
+if command -v fzf &> /dev/null; then
+    echo "🔍 Initializing fzf..."
+    $(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
+fi
+
+echo "✅ Packages installed!"

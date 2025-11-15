@@ -1,0 +1,57 @@
+# chezmoi configuration
+# This file is a template and will be processed by chezmoi
+
+[data]
+{{- $firstName := "Richard" }}
+{{- $lastName := "Kiene" }}
+{{- $email := "richard@liquescent.dev" }}
+
+{{/* Detect if 1Password CLI is available and signed in */}}
+{{- $onepassword := false }}
+{{- if (lookPath "op") }}
+{{-   $opAccount := output "op" "account" "get" "--format" "json" | mustFromJson }}
+{{-   if $opAccount }}
+{{-     $onepassword = true }}
+{{-   end }}
+{{- end }}
+
+{{/* If 1Password is available, get credentials from Identity item */}}
+{{- if $onepassword }}
+{{-   $firstName = onepasswordRead "op://Private/Personal/firstname" }}
+{{-   $lastName = onepasswordRead "op://Private/Personal/lastname" }}
+{{-   $email = onepasswordRead "op://Private/Personal/email" }}
+{{- else }}
+{{/*   Otherwise, use defaults or prompt for values */}}
+{{-   $firstName = promptStringOnce . "firstName" "First name" $firstName }}
+{{-   $lastName = promptStringOnce . "lastName" "Last name" $lastName }}
+{{-   $email = promptStringOnce . "email" "Email" $email }}
+{{- end }}
+
+# User information (from 1Password Identity or prompts)
+firstName = {{ $firstName | quote }}
+lastName = {{ $lastName | quote }}
+name = {{ printf "%s %s" $firstName $lastName | quote }}
+email = {{ $email | quote }}
+
+# Detect operating system
+{{- $osid := .chezmoi.os }}
+{{- if hasKey .chezmoi.osRelease "id" }}
+{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id }}
+{{- end }}
+osid = {{ $osid | quote }}
+
+[diff]
+# Use color in diffs
+color = "auto"
+# Exclude certain files from diffs
+exclude = ["scripts"]
+
+[git]
+# Automatically commit and push changes
+autoCommit = false
+autoPush = false
+
+[merge]
+# Use diff3 conflict style (includes ancestor)
+command = "nvim"
+args = ["-d"]

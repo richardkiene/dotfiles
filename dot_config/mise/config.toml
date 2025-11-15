@@ -1,0 +1,42 @@
+# mise configuration - Unified version manager
+# https://mise.jdx.dev/
+
+# Global tool versions
+# Project-specific versions can be set in .mise.toml or .tool-versions in each project
+
+[tools]
+# Node.js
+node = "lts"           # Latest LTS version
+
+# Python
+python = "3.12"        # Python 3.12
+
+# Go
+go = "latest"          # Latest stable Go
+
+# Rust
+rust = "latest"        # Latest stable Rust
+
+# .NET
+dotnet = "latest"      # Latest stable .NET SDK
+
+# Add other tools as needed
+# ruby = "3.2"
+# java = "21"
+
+# ============================================================================
+# Settings
+# ============================================================================
+[settings]
+# Automatically install missing tools when entering a directory
+auto_install = true
+
+# Use symlinks for shims (faster)
+experimental = true
+
+# ============================================================================
+# Aliases (optional shortcuts)
+# ============================================================================
+[aliases]
+# Example: mise use node@20 instead of node@20.x.x
+# node = { "20" = "20.11.0" }

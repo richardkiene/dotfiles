@@ -1,0 +1,84 @@
+# ~/.zshrc - Minimal, fast shell configuration
+
+# ============================================================================
+# Environment Variables
+# ============================================================================
+
+export EDITOR="nvim"
+export VISUAL="nvim"
+
+# ============================================================================
+# mise (version manager for node, python, etc.)
+# ============================================================================
+eval "$(mise activate zsh)"
+
+# ============================================================================
+# PATH additions
+# ============================================================================
+
+# Go binaries
+export PATH="$HOME/go/bin:$PATH"
+
+# Claude Code
+export PATH="$HOME/.claude/local:$PATH"
+
+# Local binaries
+export PATH="$HOME/.local/bin:$PATH"
+
+# ============================================================================
+# 1Password SSH Agent
+# ============================================================================
+export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+
+# ============================================================================
+# Shell Integrations
+# ============================================================================
+
+# Starship prompt (fast, cross-platform)
+eval "$(starship init zsh)"
+
+# fzf (fuzzy finder)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# zoxide (smarter cd)
+eval "$(zoxide init zsh)"
+
+# ============================================================================
+# Aliases
+# ============================================================================
+
+# Modern CLI replacements
+alias ls="eza --icons"
+alias ll="eza -l --icons"
+alias la="eza -la --icons"
+alias cat="bat"
+alias cd="z"  # Use zoxide
+
+# Claude Code
+alias claude="$HOME/.claude/local/claude"
+
+# Docker
+alias dc="docker compose"
+alias dps="docker ps"
+alias dim="docker images"
+
+# Git shortcuts
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
+alias gl="git log --oneline --graph"
+
+# Quick edits
+alias zshconfig="nvim ~/.zshrc"
+alias nvimconfig="nvim ~/.config/nvim/init.lua"
+
+# ============================================================================
+# iTerm2 Integration (remove when switching to Ghostty)
+# ============================================================================
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# ============================================================================
+# Local customizations
+# ============================================================================
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local

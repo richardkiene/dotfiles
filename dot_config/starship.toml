@@ -1,0 +1,117 @@
+# Starship Prompt Configuration
+# https://starship.rs/config/
+
+# Minimal, fast prompt configuration
+
+format = """
+[┌─](bold green)$directory$git_branch$git_status$git_state
+[└─](bold green)$character"""
+
+# Timeout for starship to run
+command_timeout = 500
+
+# ============================================================================
+# Prompt Character
+# ============================================================================
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold green)"
+
+# ============================================================================
+# Directory
+# ============================================================================
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+style = "bold cyan"
+read_only = " 󰌾"
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+# ============================================================================
+# Git Branch
+# ============================================================================
+[git_branch]
+symbol = " "
+style = "bold purple"
+format = "[$symbol$branch]($style) "
+
+# ============================================================================
+# Git Status
+# ============================================================================
+[git_status]
+ahead = "⇡${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+behind = "⇣${count}"
+style = "bold yellow"
+format = "([$all_status$ahead_behind]($style) )"
+
+# ============================================================================
+# Git State (rebase, merge, etc.)
+# ============================================================================
+[git_state]
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
+style = "bold yellow"
+
+# ============================================================================
+# Language Indicators (optional, shows versions)
+# ============================================================================
+
+[nodejs]
+symbol = " "
+format = "[$symbol($version )]($style)"
+style = "bold green"
+
+[python]
+symbol = " "
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+style = "bold yellow"
+
+[rust]
+symbol = " "
+format = "[$symbol($version )]($style)"
+style = "bold red"
+
+[golang]
+symbol = " "
+format = "[$symbol($version )]($style)"
+style = "bold cyan"
+
+[dotnet]
+symbol = "󰪮 "
+format = "[$symbol($version )]($style)"
+style = "bold blue"
+
+# ============================================================================
+# Command Duration
+# ============================================================================
+[cmd_duration]
+min_time = 500
+format = "took [$duration]($style) "
+style = "bold yellow"
+
+# ============================================================================
+# Time (disabled by default, uncomment to enable)
+# ============================================================================
+# [time]
+# disabled = false
+# format = '🕙[\[ $time \]]($style) '
+# time_format = "%T"
+# style = "bold white"
+
+# ============================================================================
+# Battery (useful for laptops)
+# ============================================================================
+[battery]
+full_symbol = "🔋"
+charging_symbol = "⚡"
+discharging_symbol = "💀"
+format = "[$symbol$percentage]($style) "
+
+[[battery.display]]
+threshold = 10
+style = "bold red"
+
+[[battery.display]]
+threshold = 30
+style = "bold yellow"
