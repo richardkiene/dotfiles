@@ -69,7 +69,11 @@ alias ls="eza --icons"
 alias ll="eza -l --icons"
 alias la="eza -la --icons"
 alias cat="bat"
-alias cd="z"  # Use zoxide
+
+# Only alias cd to z in interactive shells (not for background commands from tools)
+if [[ -o interactive ]]; then
+  alias cd="z"
+fi
 
 # Claude Code
 alias claude="$HOME/.claude/local/claude"

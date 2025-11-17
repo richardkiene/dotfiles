@@ -154,10 +154,18 @@ require("lazy").setup({
         },
         filters = {
           dotfiles = false,
+          custom = {
+            -- Exclude macOS module cache and build directories that cause file watcher errors
+            "ModuleCache",
+            "DerivedData",
+            "\\.pcm$",
+            "\\.pcm\\.lock$",
+          },
         },
         git = {
           enable = true,
           ignore = false,
+          timeout = 400,  -- Reduce git timeout to fail faster on problematic paths
         },
       })
 
@@ -201,19 +209,13 @@ require("lazy").setup({
     end,
   },
 
-  -- Gruvbox (for terminal windows only)
+  -- GitHub Theme (for terminal windows only)
   {
-    "ellisonleao/gruvbox.nvim",
+    "projekt0n/github-nvim-theme",
     config = function()
-      require("gruvbox").setup({
-        contrast = "hard",
-        transparent_mode = false,
-        italic = {
-          strings = false,
-          emphasis = true,
-          comments = true,
-          operators = false,
-          folds = true,
+      require('github-theme').setup({
+        options = {
+          transparent = false,
         },
       })
     end,
@@ -249,22 +251,26 @@ require("lazy").setup({
 })
 
 -- ============================================================================
--- Terminal Styling (Gruvbox Dark Hard for terminals, VSCode for code)
+-- Terminal Styling (GitHub Dark Dimmed for terminals, VSCode for code)
 -- ============================================================================
 
--- Apply Gruvbox colorscheme to terminal windows
+-- Apply GitHub Dark Dimmed colorscheme to terminal windows
 vim.api.nvim_create_autocmd('TermOpen', {
   callback = function()
-    -- Set window-local colorscheme to Gruvbox for terminal
-    vim.cmd('setlocal winhighlight=Normal:GruvboxTerminal,NormalNC:GruvboxTerminal')
+    -- Set window-local colorscheme to GitHub Dark Dimmed for terminal
+    vim.cmd('setlocal winhighlight=Normal:GitHubTerminal,NormalNC:GitHubTerminal')
     -- Apply brighter border to terminal windows
-    vim.wo.winhighlight = 'WinSeparator:TerminalWinSeparator,Normal:GruvboxTerminal,NormalNC:GruvboxTerminal'
+    vim.wo.winhighlight = 'WinSeparator:TerminalWinSeparator,Normal:GitHubTerminal,NormalNC:GitHubTerminal'
+    -- Enable text wrapping in terminal buffers
+    vim.wo.wrap = true
+    vim.wo.linebreak = true  -- Break at word boundaries
   end,
 })
 
--- Define Gruvbox terminal colors (Dark Hard variant)
-vim.api.nvim_set_hl(0, 'GruvboxTerminal', { bg = '#1d2021', fg = '#ebdbb2' })
-vim.api.nvim_set_hl(0, 'TerminalWinSeparator', { fg = '#fabd2f', bold = true })
+-- Define GitHub Dark Dimmed terminal colors
+-- Based on https://github.com/projekt0n/github-nvim-theme
+vim.api.nvim_set_hl(0, 'GitHubTerminal', { bg = '#22272e', fg = '#adbac7' })
+vim.api.nvim_set_hl(0, 'TerminalWinSeparator', { fg = '#539bf5', bold = true })
 
 -- ============================================================================
 -- LSP Configuration (Neovim 0.11+ Built-in)
@@ -276,7 +282,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local client = vim.lsp.get_client_by_id(args.data.client_id)
 
     -- Enable built-in auto-completion
-    if client and client.supports_method('textDocument/completion', args.buf) then
+    if client and client:supports_method('textDocument/completion') then
       vim.lsp.completion.enable(true, client.id, args.buf, {
         autotrigger = true,
       })
