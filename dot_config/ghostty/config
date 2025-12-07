@@ -42,8 +42,8 @@ quick-terminal-position = "top"
 # Shell Integration
 # ============================================================================
 shell-integration = detect
-# Features: cursor shape changes, sudo wrapper, title updates
-shell-integration-features = cursor,sudo,title
+# Features: cursor, sudo, title, SSH env compatibility (falls back to xterm-256color)
+shell-integration-features = cursor,sudo,title,ssh-env
 
 # ============================================================================
 # Cursor
