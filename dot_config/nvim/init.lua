@@ -304,10 +304,36 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- Language Server Configurations
 -- Servers auto-start when you open the corresponding file type
 
+-- Helper: Check if buffer is a real file (not a diff view, scratch buffer, etc.)
+-- This prevents LSP from attaching to Claude Code diff buffers which causes crashes
+local function is_real_file_buffer(bufnr)
+  bufnr = bufnr or 0
+  local bufname = vim.api.nvim_buf_get_name(bufnr)
+  local buftype = vim.bo[bufnr].buftype
+
+  -- Skip if buftype is set (scratch, nofile, terminal, etc.)
+  if buftype ~= '' then
+    return false
+  end
+
+  -- Skip if no buffer name or name contains special markers (Claude Code diff buffers)
+  if bufname == '' or bufname:match('%[Claude Code%]') or bufname:match('^✻') then
+    return false
+  end
+
+  -- Skip if file doesn't exist on disk
+  if vim.fn.filereadable(bufname) == 0 then
+    return false
+  end
+
+  return true
+end
+
 -- Go
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'go',
   callback = function()
+    if not is_real_file_buffer() then return end
     if vim.fn.executable('gopls') == 1 then
       vim.lsp.start({
         name = 'gopls',
@@ -322,6 +348,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'rust',
   callback = function()
+    if not is_real_file_buffer() then return end
     if vim.fn.executable('rust-analyzer') == 1 then
       vim.lsp.start({
         name = 'rust-analyzer',
@@ -336,6 +363,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {'typescript', 'javascript', 'typescriptreact', 'javascriptreact'},
   callback = function()
+    if not is_real_file_buffer() then return end
     if vim.fn.executable('typescript-language-server') == 1 then
       vim.lsp.start({
         name = 'ts_ls',
@@ -350,6 +378,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {'c', 'cpp'},
   callback = function()
+    if not is_real_file_buffer() then return end
     if vim.fn.executable('clangd') == 1 then
       vim.lsp.start({
         name = 'clangd',
@@ -364,6 +393,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'swift',
   callback = function()
+    if not is_real_file_buffer() then return end
     if vim.fn.executable('sourcekit-lsp') == 1 then
       vim.lsp.start({
         name = 'sourcekit',
@@ -378,6 +408,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'html',
   callback = function()
+    if not is_real_file_buffer() then return end
     if vim.fn.executable('vscode-html-language-server') == 1 then
       vim.lsp.start({
         name = 'html',
@@ -392,6 +423,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'css',
   callback = function()
+    if not is_real_file_buffer() then return end
     if vim.fn.executable('vscode-css-language-server') == 1 then
       vim.lsp.start({
         name = 'cssls',
@@ -406,6 +438,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'lua',
   callback = function()
+    if not is_real_file_buffer() then return end
     if vim.fn.executable('lua-language-server') == 1 then
       vim.lsp.start({
         name = 'lua_ls',
