@@ -101,3 +101,6 @@ macos-option-as-alt = true
 
 # Title bar style (native, transparent, hidden)
 macos-titlebar-style = native
+
+# Claude Code multi-line support
+keybind = shift+enter=text:\x1b\r
