@@ -68,7 +68,7 @@ require("lazy").setup({
         split_width_percentage = 0.35,
         provider = "native",
         terminal_cmd = function()
-          return vim.fn.expand("~/.claude/local/claude")
+          return vim.fn.expand("~/.local/bin/claude")
         end,
       },
       diff_opts = {
