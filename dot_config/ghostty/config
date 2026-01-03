@@ -87,6 +87,9 @@ keybind = super+down=goto_split:bottom
 # Clear screen
 keybind = super+k=clear_screen
 
+# Shift+Enter for Claude Code newlines
+keybind = shift+enter=text:\x0a
+
 # Font size
 keybind = super+equal=increase_font_size:1
 keybind = super+minus=decrease_font_size:1
