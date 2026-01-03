@@ -19,9 +19,6 @@ eval "$(mise activate zsh)"
 # Go binaries
 export PATH="$HOME/go/bin:$PATH"
 
-# Claude Code
-export PATH="$HOME/.claude/local:$PATH"
-
 # Local binaries
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -75,9 +72,6 @@ if [[ -o interactive ]]; then
   alias cd="z"
 fi
 
-# Claude Code
-alias claude="$HOME/.claude/local/claude"
-
 # Docker
 alias dc="docker compose"
 alias dps="docker ps"
@@ -93,11 +87,6 @@ alias gl="git log --oneline --graph"
 # Quick edits
 alias zshconfig="nvim ~/.zshrc"
 alias nvimconfig="nvim ~/.config/nvim/init.lua"
-
-# ============================================================================
-# iTerm2 Integration (remove when switching to Ghostty)
-# ============================================================================
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # ============================================================================
 # Local customizations
