@@ -19,7 +19,7 @@ That's it. Everything installs automatically.
 ### Core
 - **Shell**: zsh + starship prompt
 - **Editor**: Neovim 0.11+ with LSP + Claude Code
-- **Terminal**: Ghostty
+- **Terminal**: iTerm2 (with tmux integration)
 - **Versions**: mise (replaces nvm, rbenv, pyenv, rustup, etc.)
 - **Packages**: Homebrew
 
@@ -95,11 +95,6 @@ source ~/.local/share/chezmoi/macos/defaults.sh
 - `gd` - Go to definition
 - `K` - Hover docs
 
-### Ghostty
-- `Cmd+T` - New tab
-- `Cmd+D` - Split right
-- `Cmd+Shift+D` - Split down
-
 ### Tmux (Prefix: Ctrl+a)
 - `Ctrl+a |` - Split vertical
 - `Ctrl+a -` - Split horizontal
@@ -114,12 +109,26 @@ cd    # zoxide (smart jumping)
 dc    # docker compose
 ```
 
+## Remote Development
+
+SSH to headless Mac with tmux integration. iTerm2's `-CC` mode maps tmux sessions to native tabs/splits with session persistence.
+
+```bash
+dev              # Connect to main tmux session
+dev myproject    # Connect to named session
+devp api-server  # Connect to session in ~/code/api-server
+dev-ls           # List all remote tmux sessions
+dev-kill old     # Kill a remote session
+```
+
+Requires `dev` host in SSH config. On first `chezmoi apply`, you'll be prompted for the headless Mac's hostname/IP.
+
 ## Why These Tools?
 
 - **chezmoi**: Industry-standard dotfiles manager with 1Password integration
 - **mise**: Single version manager for all languages (replaces 5+ tools)
 - **starship**: Fast Rust-based prompt (~50ms startup vs 250ms+ with oh-my-zsh)
-- **Ghostty**: GPU-accelerated terminal written in Zig
+- **iTerm2**: Native tmux integration for persistent remote dev sessions
 
 ## Development
 
