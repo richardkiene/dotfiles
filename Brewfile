@@ -42,7 +42,7 @@ cask "font-meslo-lg-nerd-font"
 cask "font-jetbrains-mono-nerd-font"
 
 # GUI Apps
-cask "ghostty"         # Modern terminal
+cask "iterm2"          # Terminal with tmux integration
 cask "1password"
 cask "1password-cli"   # 1Password CLI
 

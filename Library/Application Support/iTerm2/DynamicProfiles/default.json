@@ -1,0 +1,38 @@
+{
+  "Profiles": [
+    {
+      "Name": "Default",
+      "Guid": "BA19A8D4-5B3E-4E6B-8D5A-F8C9E2D3A1B0",
+      "Default Bookmark": "Yes",
+
+      "Normal Font": "FiraCodeNF-Reg 13",
+      "Non Ascii Font": "FiraCodeNF-Reg 13",
+      "Use Ligatures": true,
+      "ASCII Ligatures": true,
+
+      "Columns": 120,
+      "Rows": 35,
+
+      "Terminal Type": "xterm-256color",
+      "Scrollback Lines": 10000,
+
+      "Option Key Sends": 2,
+      "Right Option Key Sends": 2,
+
+      "Mouse Reporting": true,
+      "Silence Bell": false,
+      "Visual Bell": true,
+
+      "Close Sessions On End": true,
+      "Prompt Before Closing 2": 0,
+
+      "Use Custom Command": "No",
+      "Command": "",
+
+      "Semantic History": {
+        "action": "editor",
+        "editor": "com.microsoft.VSCode"
+      }
+    }
+  ]
+}
