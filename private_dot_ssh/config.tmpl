@@ -1,0 +1,18 @@
+# SSH Configuration
+# Managed by chezmoi
+
+# Colima (Docker)
+Include ~/.colima/ssh_config
+
+# 1Password SSH Agent
+Host *
+    IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+
+{{- if .devHost }}
+
+# Headless Mac for remote development
+Host dev
+    HostName {{ .devHost }}
+    User kiener
+    ForwardAgent yes
+{{- end }}

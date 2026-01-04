@@ -89,6 +89,36 @@ alias zshconfig="nvim ~/.zshrc"
 alias nvimconfig="nvim ~/.config/nvim/init.lua"
 
 # ============================================================================
+# Remote Development (tmux over SSH)
+# ============================================================================
+
+# Connect to headless mac and attach/create tmux session
+# Usage: dev [session-name]
+function dev() {
+  local session="${1:-main}"
+  ssh dev -t "tmux -CC attach-session -t $session 2>/dev/null || tmux -CC new-session -s $session"
+}
+
+# Connect to project-specific session (starts in ~/code/$project)
+# Usage: devp <project-name>
+function devp() {
+  local project="${1:?Usage: devp <project-name>}"
+  ssh dev -t "tmux -CC attach-session -t $project 2>/dev/null || tmux -CC new-session -s $project -c ~/code/$project"
+}
+
+# List all tmux sessions on remote
+function dev-ls() {
+  ssh dev "tmux list-sessions 2>/dev/null || echo 'No sessions'"
+}
+
+# Kill a remote tmux session
+# Usage: dev-kill <session-name>
+function dev-kill() {
+  local session="${1:?Usage: dev-kill <session-name>}"
+  ssh dev "tmux kill-session -t $session"
+}
+
+# ============================================================================
 # Local customizations
 # ============================================================================
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local

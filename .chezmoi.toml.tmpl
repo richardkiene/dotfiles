@@ -27,11 +27,17 @@
 {{-   $email = promptStringOnce . "email" "Email" $email }}
 {{- end }}
 
+{{/* Remote development host (headless Mac) */}}
+{{- $devHost := promptStringOnce . "devHost" "Headless Mac hostname/IP (for SSH 'dev' alias)" "" }}
+
 # User information (from 1Password Identity or prompts)
 firstName = {{ $firstName | quote }}
 lastName = {{ $lastName | quote }}
 name = {{ printf "%s %s" $firstName $lastName | quote }}
 email = {{ $email | quote }}
+
+# Remote development host
+devHost = {{ $devHost | quote }}
 
 # Detect operating system
 {{- $osid := .chezmoi.os }}
